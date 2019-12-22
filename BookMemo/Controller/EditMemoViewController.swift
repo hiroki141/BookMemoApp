@@ -65,24 +65,24 @@ class EditMemoViewController: UIViewController,UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return true
     }
+  
     
-    func textViewDidChange(_ textView: UITextView) {
-        let letter = textView.text.suffix(1)
-        if letter == "\n"{
-            print("改行")
-        }else{
-            print("入力された文字:\(letter)")
-            textView.text.append("\u{2022}")
-        }
-    }
+//    箇条書の実装
+//    func textViewDidChange(_ textView: UITextView) {
+//        let letter = textView.text.suffix(1)
+//        if letter == "\n"{
+//            print("改行")
+//        }else{
+//            print("入力された文字:\(letter)")
+//            textView.text.append("\u{2022}")
+//        }
+//    }
     
 
     @IBAction func saveAction(_ sender: Any) {
         
         book!.memo = memoTextView.text
-            
-        appDelegate.dataController.updateBook(title: book!.title!, updatedBook: book!)
-        print("更新しました")
+        appDelegate.dataController.saveContext()
         saveReport(title: "保存しました", message: "book一覧へ戻りますか？編集を続けますか？")
         
     }

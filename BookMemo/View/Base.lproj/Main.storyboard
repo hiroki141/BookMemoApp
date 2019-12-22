@@ -245,7 +245,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sCY-Ft-kcr">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sCY-Ft-kcr">
                                 <rect key="frame" x="20" y="300" width="374" height="508"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -274,10 +274,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pok-13-iaX">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pok-13-iaX">
                                 <rect key="frame" x="20" y="119" width="140" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="pLM-Ta-EUF"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dY-mN-uJU">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dY-mN-uJU">
                                 <rect key="frame" x="334" y="827" width="60" height="44"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="保存">
@@ -291,20 +294,23 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Pok-13-iaX" firstAttribute="leading" secondItem="AUf-r6-O0C" secondAttribute="leading" constant="20" id="2LK-2i-xSI"/>
+                            <constraint firstItem="Pok-13-iaX" firstAttribute="leading" secondItem="sCY-Ft-kcr" secondAttribute="leading" id="3pA-4g-i9y"/>
                             <constraint firstItem="sCY-Ft-kcr" firstAttribute="top" secondItem="Pok-13-iaX" secondAttribute="bottom" constant="41" id="BQp-y8-vVQ"/>
-                            <constraint firstItem="AUf-r6-O0C" firstAttribute="trailing" secondItem="0dY-mN-uJU" secondAttribute="trailing" constant="20" id="EIy-OV-imj"/>
                             <constraint firstItem="sCY-Ft-kcr" firstAttribute="top" secondItem="Pok-13-iaX" secondAttribute="bottom" constant="41" id="Eyv-F0-Jbb"/>
                             <constraint firstItem="AUf-r6-O0C" firstAttribute="bottom" secondItem="sCY-Ft-kcr" secondAttribute="bottom" constant="54" id="IRh-tJ-l5a"/>
                             <constraint firstItem="nPn-1Z-yQR" firstAttribute="leading" secondItem="Pok-13-iaX" secondAttribute="trailing" constant="40" id="Y9P-FM-rpp"/>
-                            <constraint firstItem="0dY-mN-uJU" firstAttribute="top" secondItem="sCY-Ft-kcr" secondAttribute="bottom" constant="15" id="ZkF-pT-F67"/>
+                            <constraint firstItem="0dY-mN-uJU" firstAttribute="trailing" secondItem="9n2-BL-8O7" secondAttribute="trailing" id="Ysj-iC-rk9"/>
                             <constraint firstItem="Pok-13-iaX" firstAttribute="top" secondItem="AUf-r6-O0C" secondAttribute="top" constant="31" id="d0d-xT-En4"/>
                             <constraint firstItem="9n2-BL-8O7" firstAttribute="top" secondItem="AUf-r6-O0C" secondAttribute="top" constant="31" id="d3i-o1-Zfl"/>
-                            <constraint firstItem="0dY-mN-uJU" firstAttribute="bottom" secondItem="AUf-r6-O0C" secondAttribute="bottom" constant="5" id="d4R-Bf-Axv"/>
                             <constraint firstItem="nPn-1Z-yQR" firstAttribute="top" secondItem="9n2-BL-8O7" secondAttribute="bottom" constant="10" id="eev-UU-QOe"/>
                             <constraint firstItem="cth-VE-gLn" firstAttribute="leading" secondItem="Pok-13-iaX" secondAttribute="trailing" constant="40" id="gtG-ZY-YnB"/>
+                            <constraint firstItem="0dY-mN-uJU" firstAttribute="top" secondItem="sCY-Ft-kcr" secondAttribute="bottom" constant="19" id="m4s-1e-E0Z"/>
+                            <constraint firstItem="0dY-mN-uJU" firstAttribute="trailing" secondItem="sCY-Ft-kcr" secondAttribute="trailing" id="nez-in-Tdf"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="0dY-mN-uJU" secondAttribute="bottom" constant="-9" id="pAO-LB-FpJ"/>
                             <constraint firstItem="AUf-r6-O0C" firstAttribute="trailing" secondItem="9n2-BL-8O7" secondAttribute="trailing" constant="20" id="pTy-2H-n2K"/>
                             <constraint firstItem="9n2-BL-8O7" firstAttribute="leading" secondItem="Pok-13-iaX" secondAttribute="trailing" constant="40" id="tNG-Sl-28b"/>
                             <constraint firstItem="cth-VE-gLn" firstAttribute="top" secondItem="nPn-1Z-yQR" secondAttribute="bottom" constant="10" id="xGM-K0-zqR"/>
+                            <constraint firstItem="0dY-mN-uJU" firstAttribute="leading" secondItem="AUf-r6-O0C" secondAttribute="leading" constant="334" id="xgH-B6-ENv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AUf-r6-O0C"/>
                     </view>

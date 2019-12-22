@@ -20,7 +20,7 @@ class CaptureViewController: UIViewController {
     var books = [AcquiredBookData]()
 
     
-    // 読み取り範囲（0 ~ 1.0の範囲で指定）
+    // 読み取り範囲
     let x: CGFloat = 0.1
     let y: CGFloat = 0.4
     let width: CGFloat = 0.8
@@ -87,6 +87,7 @@ class CaptureViewController: UIViewController {
         }
     }
     
+    //ISBNの判定を行う
     func isISBN(isbn:String) ->Bool{
         let v = NSString(string: isbn).longLongValue
         let prefix: Int64 = Int64(v / 10000000000)
@@ -133,7 +134,6 @@ extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
                                 bookData.author = json["Items"][i]["Item"]["author"].string!
                                 bookData.publisher = json["Items"][i]["Item"]["publisherName"].string!
                                 bookData.publishDate = json["Items"][i]["Item"]["salesDate"].string!
-                                //イメージURLをデータ型にして代入
                                 let imageURLString = json["Items"][i]["Item"]["largeImageUrl"].string!
                                 let imageUrl = URL(string: imageURLString)
                                 do {
