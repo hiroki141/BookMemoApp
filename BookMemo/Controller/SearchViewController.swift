@@ -81,7 +81,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate,UINavigationCon
     @IBAction func searchWithTitle(_ sender: Any) {
         searchKeyword = searchBar.text
         if let keyword = searchKeyword{
-            getBookData(searchKeyword: keyword, keywordType: "title")
+            getBookData(searchKeyword: keyword, keywordType: keywordType.title)
             print("searchKeyword: \(keyword)")
         }
     }
@@ -89,19 +89,16 @@ class SearchViewController: UIViewController,UISearchBarDelegate,UINavigationCon
     @IBAction func searchWithAuthor(_ sender: Any) {
         searchKeyword = searchBar.text
         if let keyword = searchKeyword{
-            getBookData(searchKeyword: keyword, keywordType: "author")
+            getBookData(searchKeyword: keyword, keywordType: keywordType.author)
             print("searchKeyword: \(keyword)")
         }
     }
     
     
-    func getBookData(searchKeyword:String, keywordType:String){
+    func getBookData(searchKeyword:String, keywordType:keywordType){
         
-        let parameter = keywordType + "=" + searchKeyword
-        
-        let urlString = "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&\(parameter)&hits=10&applicationId=1043569448607728611"
-        let url = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        
+        let urlManager = UrlManager(keywordType: keywordType, keyword: searchKeyword)
+        let url = urlManager.getURL()
         AF.request(url, method: .get, parameters: nil, encoding:JSONEncoding.default).responseJSON{[weak self](response) in
             guard let _ = self else{return}
                 
@@ -109,30 +106,27 @@ class SearchViewController: UIViewController,UISearchBarDelegate,UINavigationCon
                 case .success:
                     let json:JSON = JSON(response.data as Any)
                     print(json)
-                    var resultCount = json["count"].int!
-                    if resultCount>10 {
-                        resultCount = 10
-                    }
-                    print("ヒット数： \(json["count"].int!)\n表示数：\(resultCount)")
+                    let resultCount = json["count"].int!
                     guard resultCount != 0 else {
                         print("本が見つかりませんでした（0 hit）")
                         return
                     }
-                    for i in 0..<(resultCount-1){
-                        let bookData:AcquiredBookData = AcquiredBookData()
-                        bookData.title = json["Items"][i]["Item"]["title"].string!
-                        bookData.author = json["Items"][i]["Item"]["author"].string!
-                        bookData.publisher = json["Items"][i]["Item"]["publisherName"].string!
-                        bookData.publishDate = json["Items"][i]["Item"]["salesDate"].string!
+                    let items = json["Items"]
+                    for (i, _) in items.enumerated(){
+                        var bookData:AcquiredBookData = AcquiredBookData()
+                        bookData.title = items[i]["Item"]["title"].string!
+                        bookData.author = items[i]["Item"]["author"].string!
+                        bookData.publisher = items[i]["Item"]["publisherName"].string!
+                        bookData.publishDate = items[i]["Item"]["salesDate"].string!
                         //イメージURLをデータ型にして代入
-                        let imageURLString = json["Items"][i]["Item"]["largeImageUrl"].string!
-                        let imageUrl = URL(string: imageURLString)
-                        do {
-                            bookData.image = try Data(contentsOf: imageUrl!)
-                        }catch let error{
-                            print(error)
+                        let imageURLString = items[i]["Item"]["largeImageUrl"].string!
+                        if let imageUrl = URL(string: imageURLString){
+                            do {
+                                bookData.image = try Data(contentsOf: imageUrl)
+                            }catch let error{
+                                print(error)
+                            }
                         }
-                            
                         print("データを取得：\(bookData.title)")
                         self!.books.append(bookData)
                         }

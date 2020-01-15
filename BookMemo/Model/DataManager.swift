@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Foundation
 
-class DataController: NSObject{
+class DataManager: NSObject{
     var persistentContainer: NSPersistentContainer!
     
     init(completionClosure: @escaping()->()) {
@@ -47,7 +47,7 @@ class DataController: NSObject{
     
     
     //読み込み
-    func fetchBooks() -> [Book]{
+    func getBooks() -> [Book]{
         let context = persistentContainer.viewContext
         let booksfetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
         
@@ -57,7 +57,6 @@ class DataController: NSObject{
         }catch{
             fatalError("Failed to fetch books: \(error)")
         }
-        
         return []
         
         

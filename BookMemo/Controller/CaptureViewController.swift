@@ -13,19 +13,11 @@ import SwiftyJSON
 
 
 
-class CaptureViewController: UIViewController {
+final class CaptureViewController: UIViewController {
     
     @IBOutlet weak var captureView: UIView!
     
-    var books = [AcquiredBookData]()
-
-    
-    // 読み取り範囲
-    let x: CGFloat = 0.1
-    let y: CGFloat = 0.4
-    let width: CGFloat = 0.8
-    let height: CGFloat = 0.2
-    
+    var books = [AcquiredBookData]()    
     
     lazy var captureSession: AVCaptureSession = AVCaptureSession()
     lazy var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!
@@ -47,19 +39,19 @@ class CaptureViewController: UIViewController {
         super.viewDidLoad()
         
         // どの範囲を解析するか設定する
-        captureOutput.rectOfInterest = CGRect(x:y, y:1-x-width, width:height, height:width)
+        captureOutput.rectOfInterest = CGRect(x:CaptureRange.y , y:1-CaptureRange.x-CaptureRange.width, width:CaptureRange.height, height:CaptureRange.width)
 
         // 解析範囲を表すボーダービューを作成する
-        let borderView = UIView(frame: CGRect(x:x * self.view.bounds.width, y:y * self.view.bounds.height, width:width * self.view.bounds.width, height:height * self.view.bounds.height))
+        let borderView = UIView(frame: CGRect(x:CaptureRange.x * self.view.bounds.width, y:CaptureRange.y * self.view.bounds.height, width:CaptureRange.width * self.view.bounds.width, height:CaptureRange.height * self.view.bounds.height))
         borderView.layer.borderWidth = 2
         borderView.layer.borderColor = UIColor.red.cgColor
         self.view.addSubview(borderView)
         
-        let label = UILabel(frame: CGRect(x: x * self.view.bounds.width, y: y * self.view.bounds.height-50, width: width * self.view.bounds.width, height: 50))
+        let label = UILabel(frame: CGRect(x: CaptureRange.x * self.view.bounds.width, y: CaptureRange.y * self.view.bounds.height-50, width: CaptureRange.width * self.view.bounds.width, height: 50))
         label.text = "上段のバーコードを枠に入れてください"
         label.font = UIFont.boldSystemFont(ofSize: 20.0)
-        label.textColor = UIColor.red
-        label.textAlignment = NSTextAlignment.center
+        label.textColor = .red
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         self.view.addSubview(label)
 
@@ -82,7 +74,7 @@ class CaptureViewController: UIViewController {
             capturePreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             captureView?.layer.addSublayer(capturePreviewLayer)
             captureSession.startRunning()
-        } catch let error as NSError {
+        } catch let error {
             print(error)
         }
     }
@@ -96,7 +88,6 @@ class CaptureViewController: UIViewController {
         }else{ return false }
     }
     
-
 }
 
 extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
@@ -114,7 +105,8 @@ extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
             print("ISBN：\t \(value)")
             captureSession.stopRunning()
             
-            let url = "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&isbn=\(value)&applicationId=1043569448607728611"
+            let urlManager = UrlManager(keywordType: .isbn, keyword: value)
+            let url = urlManager.getURL()
             AF.request(url, method: .get, parameters: nil, encoding:JSONEncoding.default).responseJSON{[weak self](response) in
                 guard let _ = self else{return}
                     
@@ -127,26 +119,26 @@ extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
                             print("本が見つかりませんでした（0 hit）")
                             return
                         }
-                        for i in 0...resultCount!-1{
-                            if i < resultCount! {
-                                let bookData:AcquiredBookData = AcquiredBookData()
-                                bookData.title = json["Items"][i]["Item"]["title"].string!
-                                bookData.author = json["Items"][i]["Item"]["author"].string!
-                                bookData.publisher = json["Items"][i]["Item"]["publisherName"].string!
-                                bookData.publishDate = json["Items"][i]["Item"]["salesDate"].string!
-                                let imageURLString = json["Items"][i]["Item"]["largeImageUrl"].string!
-                                let imageUrl = URL(string: imageURLString)
+                        let items = json["Items"]
+                        
+                        for (i, _) in items.enumerated(){
+                            var bookData:AcquiredBookData = AcquiredBookData()
+                            bookData.title = items[i]["Item"]["title"].string!
+                            bookData.author = items[i]["Item"]["author"].string!
+                            bookData.publisher = items[i]["Item"]["publisherName"].string!
+                            bookData.publishDate = items[i]["Item"]["salesDate"].string!
+                            let imageURLString = items[i]["Item"]["largeImageUrl"].string!
+                            if let imageUrl = URL(string: imageURLString){
                                 do {
-                                    bookData.image = try Data(contentsOf: imageUrl!)
+                                    bookData.image = try Data(contentsOf: imageUrl)
                                 }catch let error{
                                     print(error)
                                 }
-                                
-                                print("データを取得：\(bookData.title)")
-                                self!.books.append(bookData)
-                            }else{break}
-                            self!.performSegue(withIdentifier: "toSearchResult", sender: nil)
+                            }
+                            print("データを取得：\(bookData.title)")
+                            self!.books.append(bookData)
                         }
+                        self!.performSegue(withIdentifier: "toSearchResult", sender: nil)
                         break
                     case .failure(let error):
                         print(error)
@@ -158,6 +150,7 @@ extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "toSearchResult"{
             let nextVC = segue.destination as! SearchResultViewController
             nextVC.bookArray = books

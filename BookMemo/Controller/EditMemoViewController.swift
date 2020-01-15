@@ -11,8 +11,7 @@ import UIKit
 class EditMemoViewController: UIViewController,UITextViewDelegate {
     
     var book: Book? = Book()
-    
-    var appDelegate:AppDelegate!
+    var dataManager = DataManager(){}
     
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -36,14 +35,11 @@ class EditMemoViewController: UIViewController,UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
         titleLabel.text = book!.title
         authorLabel.text = book!.author
         publisherLabel.text = book!.publisher
         publishDateLabel.text = book!.publishDate
         bookImageView.image = UIImage(data: book!.image!)
-        
         
         memoTextView.text = book!.memo
         memoTextView.layer.cornerRadius = 10.0
@@ -82,11 +78,10 @@ class EditMemoViewController: UIViewController,UITextViewDelegate {
     @IBAction func saveAction(_ sender: Any) {
         
         book!.memo = memoTextView.text
-        appDelegate.dataController.saveContext()
+        dataManager.saveContext()
         saveReport(title: "保存しました", message: "book一覧へ戻りますか？編集を続けますか？")
         
     }
-    
     
     
     //削除ボタン
@@ -95,13 +90,12 @@ class EditMemoViewController: UIViewController,UITextViewDelegate {
     }
     
     
-    
     func deleteAlert(title:String, message:String){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self](UIAlertAction) in
             guard let _ = self else{return}
             
-                self!.appDelegate.dataController.delete(title: self!.book!.title!)
+                self!.dataManager.delete(title: self!.book!.title!)
                 self?.navigationController?.popViewController(animated: true)
             
         }))

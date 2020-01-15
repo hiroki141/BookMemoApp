@@ -15,7 +15,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBOutlet weak var booksTableView: UITableView!
     
-    var appDelegate:AppDelegate!
+    var dataManager = DataManager(){}
     var books = [Book]()
     var selectedBook = Book()
     
@@ -32,8 +32,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(true)
         
-        appDelegate = UIApplication.shared.delegate as? AppDelegate
-        books = appDelegate.dataController.fetchBooks()
+        books = dataManager.getBooks()
         booksTableView.reloadData()
     }
 

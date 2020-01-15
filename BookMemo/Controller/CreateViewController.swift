@@ -11,13 +11,19 @@ import UIKit
 class CreateViewController: UIViewController,UITextViewDelegate {
     
     var bookData = AcquiredBookData()
-    var appDelegate:AppDelegate!
+    var dataManager = DataManager(){}
     
     @IBOutlet weak var bookImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
-    @IBOutlet weak var memoTextView: UITextView!
+    @IBOutlet weak var memoTextView: UITextView! {
+        didSet{
+            memoTextView.layer.cornerRadius = 10.0
+            memoTextView.layer.masksToBounds = true
+            memoTextView.delegate = self
+        }
+    }
     @IBOutlet weak var saveButton: UIButton!
     
     @objc func onClickCommitButton(sender: UIButton){
@@ -35,9 +41,7 @@ class CreateViewController: UIViewController,UITextViewDelegate {
         authorLabel.text = bookData.author
         publisherLabel.text = bookData.publisher
         
-        memoTextView.layer.cornerRadius = 10.0
-        memoTextView.layer.masksToBounds = true
-        memoTextView.delegate = self
+        
         //キーボードに完了ボタンを追加
         let customBar = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44))
         let commitButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width-50, y: 0, width: 50, height: 44))
@@ -53,8 +57,7 @@ class CreateViewController: UIViewController,UITextViewDelegate {
     
     @IBAction func saveAction(_ sender: Any) {
         //新しいデータの作成
-        appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let book = appDelegate.dataController.createBook()
+        let book = dataManager.createBook()
         
         
         book.title = bookData.title
@@ -64,7 +67,7 @@ class CreateViewController: UIViewController,UITextViewDelegate {
         book.image = bookData.image
         book.memo = memoTextView.text
         
-        appDelegate.dataController.saveContext()
+        dataManager.saveContext()
         print("新しいbookを保存しました")
         saveReport(title: "保存しました", message: "book一覧へ戻りますか？編集を続けますか？")
         
