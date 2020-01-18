@@ -90,4 +90,4 @@ fastlane/test_output
 iOSInjectionProject/
 
 # URL記載のファイル
-BookMemo/Model/URL.swift
+/BookMemo/Model/URL.swift
