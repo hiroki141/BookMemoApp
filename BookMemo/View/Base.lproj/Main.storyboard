@@ -48,7 +48,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="booksTableView" destination="jzO-rz-vyj" id="auv-Ob-ywc"/>
-                        <segue destination="pur-7I-Sxt" kind="show" identifier="toEditMemo" id="aAA-dv-bmR"/>
+                        <segue destination="pur-7I-Sxt" kind="show" identifier="toEditMemoView" id="aAA-dv-bmR"/>
                         <segue destination="coN-yz-ZQE" kind="presentation" identifier="toCapture" id="o2H-Y3-vX4"/>
                         <segue destination="T1m-sD-Tye" kind="presentation" identifier="toSearch" id="lLg-3C-Ef6"/>
                     </connections>
@@ -346,7 +346,18 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Hhb-As-PQ3"/>
                     </view>
-                    <navigationItem key="navigationItem" id="NCA-mo-LiC"/>
+                    <navigationItem key="navigationItem" id="NCA-mo-LiC">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Jm2-F2-xW1">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xV4-bQ-CVK">
+                                <rect key="frame" x="20" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="backTopPage:" destination="dZj-Sy-ky0" eventType="touchUpInside" id="phr-Ec-gTe"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="captureView" destination="2dn-mQ-AKl" id="LYa-4I-O4v"/>
                         <segue destination="dSF-KO-Yep" kind="show" identifier="toSearchResult" id="azL-yW-NuH"/>

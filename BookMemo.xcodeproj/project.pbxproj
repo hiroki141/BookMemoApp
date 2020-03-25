@@ -25,6 +25,7 @@
 		F540F26C239F9A3C008BBEF0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F540F26B239F9A3C008BBEF0 /* SearchViewController.swift */; };
 		F5866063239DF94500197FD5 /* AcquiredBookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5866062239DF94500197FD5 /* AcquiredBookData.swift */; };
 		F590D61723C9BC00005B203A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F590D61623C9BC00005B203A /* Constants.swift */; };
+		F595562D23D5DB90008078ED /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F595562C23D5DB90008078ED /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		F540F26B239F9A3C008BBEF0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F5866062239DF94500197FD5 /* AcquiredBookData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredBookData.swift; sourceTree = "<group>"; };
 		F590D61623C9BC00005B203A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F595562C23D5DB90008078ED /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		F5A73D65832AECA997F3F721 /* Pods-BookMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMemo.release.xcconfig"; path = "Target Support Files/Pods-BookMemo/Pods-BookMemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,7 @@
 				F539E69223B9E5BA006B192B /* SegueDestinationType.swift */,
 				F590D61623C9BC00005B203A /* Constants.swift */,
 				F51D8D5223CC6C8F00BC0A3E /* URL.swift */,
+				F595562C23D5DB90008078ED /* AlertManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				F5866063239DF94500197FD5 /* AcquiredBookData.swift in Sources */,
 				F540F26C239F9A3C008BBEF0 /* SearchViewController.swift in Sources */,
 				F53B91DC239B542E004B2790 /* DataManager.swift in Sources */,
+				F595562D23D5DB90008078ED /* AlertManager.swift in Sources */,
 				F51D8D5323CC6C8F00BC0A3E /* URL.swift in Sources */,
 				F538B0192398F2BE001676F8 /* ViewController.swift in Sources */,
 				F539E69323B9E5BA006B192B /* SegueDestinationType.swift in Sources */,

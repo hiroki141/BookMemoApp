@@ -20,17 +20,12 @@ class EditMemoViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var publishDateLabel: UILabel!
     @IBOutlet weak var memoTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
-
-    
     
     @objc func onClickCommitButton(sender: UIButton){
         if memoTextView.isFirstResponder{
             memoTextView.resignFirstResponder()
         }
     }
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,63 +56,35 @@ class EditMemoViewController: UIViewController,UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return true
     }
-  
-    
-//    箇条書の実装
-//    func textViewDidChange(_ textView: UITextView) {
-//        let letter = textView.text.suffix(1)
-//        if letter == "\n"{
-//            print("改行")
-//        }else{
-//            print("入力された文字:\(letter)")
-//            textView.text.append("\u{2022}")
-//        }
-//    }
-    
 
     @IBAction func saveAction(_ sender: Any) {
         
         book!.memo = memoTextView.text
         dataManager.saveContext()
-        saveReport(title: "保存しました", message: "book一覧へ戻りますか？編集を続けますか？")
         
+        let saveReportManager = AlertManager(alertType: .saveSucceed)
+        saveReportManager.delegate = self
+        let saveRepotController = saveReportManager.showAlert()
+        present(saveRepotController, animated: true)
     }
-    
     
     //削除ボタン
     @IBAction func deleteAction(_ sender: Any) {
-        deleteAlert(title: "アラート表示", message: "削除しますか？")
+        let deleteAlertManager = AlertManager(alertType: .removeWarning)
+        deleteAlertManager.delegate = self
+        let deleteAlertController = deleteAlertManager.showAlert()
+        present(deleteAlertController, animated: true)
     }
-    
-    
-    func deleteAlert(title:String, message:String){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self](UIAlertAction) in
-            guard let _ = self else{return}
-            
-                self!.dataManager.delete(title: self!.book!.title!)
-                self?.navigationController?.popViewController(animated: true)
-            
-        }))
-        alertController.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
-        present(alertController, animated: true)
-    }
-    
-    
-    //保存したあと
-    //book一覧に戻るか、
-    //編集を続ける
-    func saveReport(title:String, message:String){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "book一覧へ", style: .default, handler: { [weak self](UIAlertAction) in
-            guard let _ = self else{return}
-                self?.navigationController?.popViewController(animated: true)
-        }))
-        alertController.addAction(UIAlertAction(title: "編集を続ける", style: .cancel, handler: {[weak self](UIAlertAction) in
-            guard let _ = self else{return}
-        }))
-        present(alertController, animated: true)
-    }
-    
+}
 
+extension EditMemoViewController: alertDelegate{
+    
+    func backToHome() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func deleteBook() {
+        self.dataManager.delete(title: self.book!.title!)
+        self.navigationController?.popViewController(animated: true)
+    }
 }

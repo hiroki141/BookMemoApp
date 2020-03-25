@@ -11,22 +11,17 @@ import CoreData
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    
-    
     @IBOutlet weak var booksTableView: UITableView!
     
     var dataManager = DataManager(){}
     var books = [Book]()
     var selectedBook = Book()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         booksTableView.delegate = self
         booksTableView.dataSource = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,8 +30,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         books = dataManager.getBooks()
         booksTableView.reloadData()
     }
-
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
@@ -61,35 +54,32 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedBook = books[indexPath.row]
         
-        performSegue(withIdentifier: "toEditMemo", sender: nil)
+        performSegue(withIdentifier: SegueDestination.editMemoView, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toEditMemo"{
+        if segue.identifier == SegueDestination.editMemoView{
             let editMemoVC = segue.destination as! EditMemoViewController
             editMemoVC.book = selectedBook
         }
     }
     
-    
     @IBAction func newCreate(_ sender: Any) {
-        alert(title: "メモの新規作成", message: "本の情報を取得します。")
-        
+        let actionSheetManager = AlertManager(alertType: .selectSearchMethod)
+        actionSheetManager.delegate = self
+        let actionSheetController = actionSheetManager.showAlert()
+        present(actionSheetController, animated: true)
     }
-    
-    func alert(title:String, message:String){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "バーコードを読み取る", style: .default, handler: { (UIAlertAction) in
-            self.performSegue(withIdentifier: "toCapture", sender: nil)
-        }))
-        alertController.addAction(UIAlertAction(title: "キーワードで検索する", style: .default, handler: { (UIAlertAction) in
-            self.performSegue(withIdentifier: "toSearch", sender: nil)
-        }))
-        alertController.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
-        present(alertController, animated: true)
-    }
-    
-    
+}
 
+extension ViewController:alertDelegate{
+    
+    func toCaptureViewController() {
+        self.performSegue(withIdentifier: SegueDestination.captureBarcode, sender: nil)
+    }
+    
+    func toSearchViewController() {
+        self.performSegue(withIdentifier: SegueDestination.searchByKeyword, sender: nil)
+    }
 }
 

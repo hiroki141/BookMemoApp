@@ -130,7 +130,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate,UINavigationCon
                         print("データを取得：\(bookData.title)")
                         self!.books.append(bookData)
                         }
-                    self!.performSegue(withIdentifier: "toSearchResult", sender: nil)
+                    self!.performSegue(withIdentifier: SegueDestination.searchResult, sender: nil)
                 case .failure(let error):
                     print(error)
                     break
@@ -140,7 +140,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate,UINavigationCon
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toSearchResult"{
+        if segue.identifier == SegueDestination.searchResult{
             let nextVC = segue.destination as! SearchResultViewController
             nextVC.bookArray = books
         }

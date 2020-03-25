@@ -72,11 +72,11 @@ class SearchResultViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedbook = bookArray[indexPath.row]
-        performSegue(withIdentifier: "toCreateMemo", sender: nil)
+        performSegue(withIdentifier: SegueDestination.createMemoView, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toCreateMemo"{
+        if segue.identifier == SegueDestination.createMemoView{
             let createMemoVC = segue.destination as! CreateViewController
             createMemoVC.bookData = selectedbook
         }

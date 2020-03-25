@@ -23,14 +23,12 @@ class DataManager: NSObject{
         }
     }
     
-    
     //新規作成
     func createBook() -> Book {
         let context = persistentContainer.viewContext
         let book = NSEntityDescription.insertNewObject(forEntityName: "Book", into: context) as! Book
         return book
     }
-    
     
     //保存
     func saveContext(){
@@ -45,7 +43,6 @@ class DataManager: NSObject{
         }
     }
     
-    
     //読み込み
     func getBooks() -> [Book]{
         let context = persistentContainer.viewContext
@@ -58,11 +55,7 @@ class DataManager: NSObject{
             fatalError("Failed to fetch books: \(error)")
         }
         return []
-        
-        
-        
     }
-    
     
     //検索
     func serchBook(title: String) -> [Book]{
@@ -79,14 +72,11 @@ class DataManager: NSObject{
         }
     }
     
-    
     //更新
     func updateBook(title: String,updatedBook:Book){
         var Books = serchBook(title: title)
         Books[0] = updatedBook
         saveContext()
-        
-        
     }
     
     //削除
@@ -103,13 +93,7 @@ class DataManager: NSObject{
         }catch{
             fatalError("Failed to fetch books: \(error)")
         }
-        
     }
-
-
-
-
-
 }
 
 

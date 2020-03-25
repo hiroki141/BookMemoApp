@@ -41,7 +41,6 @@ class CreateViewController: UIViewController,UITextViewDelegate {
         authorLabel.text = bookData.author
         publisherLabel.text = bookData.publisher
         
-        
         //キーボードに完了ボタンを追加
         let customBar = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44))
         let commitButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width-50, y: 0, width: 50, height: 44))
@@ -59,7 +58,6 @@ class CreateViewController: UIViewController,UITextViewDelegate {
         //新しいデータの作成
         let book = dataManager.createBook()
         
-        
         book.title = bookData.title
         book.author = bookData.author
         book.publisher = bookData.publisher
@@ -69,25 +67,17 @@ class CreateViewController: UIViewController,UITextViewDelegate {
         
         dataManager.saveContext()
         print("新しいbookを保存しました")
-        saveReport(title: "保存しました", message: "book一覧へ戻りますか？編集を続けますか？")
         
-    }
-    
-    //保存したあと
-    //book一覧に戻るか、
-    //編集を続ける
-    func saveReport(title:String, message:String){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "book一覧へ", style: .default, handler: { [weak self](UIAlertAction) in
-            guard let _ = self else{return}
-            self!.performSegue(withIdentifier: "toTopPage", sender: nil)
-        }))
-        alertController.addAction(UIAlertAction(title: "編集を続ける", style: .cancel, handler: nil))
+        let alertManager = AlertManager(alertType: .saveSucceed)
+        alertManager.delegate = self
+        let alertController = alertManager.showAlert()
         present(alertController, animated: true)
     }
-    
-    
-    
+}
 
-   
+extension CreateViewController:alertDelegate{
+  func backToHome() {
+    performSegue(withIdentifier: SegueDestination.toTopPage, sender: nil)
+        
+    }
 }

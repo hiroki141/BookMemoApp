@@ -11,8 +11,6 @@ import AVFoundation
 import Alamofire
 import SwiftyJSON
 
-
-
 final class CaptureViewController: UIViewController {
     
     @IBOutlet weak var captureView: UIView!
@@ -33,8 +31,6 @@ final class CaptureViewController: UIViewController {
         return output
     }()
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,7 +53,6 @@ final class CaptureViewController: UIViewController {
 
         setUpBarcodeCapture()
     }
-    
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -88,10 +83,13 @@ final class CaptureViewController: UIViewController {
         }else{ return false }
     }
     
+    @IBAction func backTopPage(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
-    
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
@@ -138,7 +136,7 @@ extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
                             print("データを取得：\(bookData.title)")
                             self!.books.append(bookData)
                         }
-                        self!.performSegue(withIdentifier: "toSearchResult", sender: nil)
+                        self!.performSegue(withIdentifier: SegueDestination.searchResult, sender: nil)
                         break
                     case .failure(let error):
                         print(error)
@@ -151,7 +149,7 @@ extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toSearchResult"{
+        if segue.identifier == SegueDestination.searchResult{
             let nextVC = segue.destination as! SearchResultViewController
             nextVC.bookArray = books
         }

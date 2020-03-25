@@ -9,7 +9,12 @@
 import Foundation
 
 
-enum SegueDestinationType:String {
-    case searchResult = "toSearchResult"
-    case editMemoView = "toEditMemoView"
-}
+struct SegueDestination {
+    static let searchResult = "toSearchResult"
+    static let editMemoView = "toEditMemoView"
+    static let createMemoView = "toCreateMemo"
+    static let toTopPage = "toTopPage"
+    static let captureBarcode = "toCapture"
+    static let searchByKeyword = "toSearch"
+    }
+    
