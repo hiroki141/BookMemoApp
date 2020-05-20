@@ -9,9 +9,8 @@
 import UIKit
 import CoreData
 
+class MakeMemoViewController: UIViewController, UITextViewDelegate {
 
-class MakeMemoViewController: UIViewController,UITextViewDelegate{
-    
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
@@ -19,32 +18,29 @@ class MakeMemoViewController: UIViewController,UITextViewDelegate{
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var memoTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
-    var appDelegate:AppDelegate!
-    
+    weak var appDelegate: AppDelegate!
+
     var bookImage = UIImage()
     var bookData = AcquiredBookData()
-    
-    @objc func onClickCommitButton(sender: UIButton){
-        if memoTextView.isFirstResponder{
+
+    @objc func onClickCommitButton(sender: UIButton) {
+        if memoTextView.isFirstResponder {
             memoTextView.resignFirstResponder()
         }
     }
-    
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
+
         bookTitleLabel.text = bookData.title
         authorLabel.text = bookData.author
         publisherLabel.text = bookData.publisher
         publishDateLabel.text = bookData.publishDate
         let bookImageURL = URL(string: self.bookData.imageURLString as String)!
-        bookImageView.sd_setImage(with: bookImageURL,completed: { (image, error, _, _) in
-            if error == nil{
+        bookImageView.sd_setImage(with: bookImageURL, completed: { (image, error, _, _) in
+            if error == nil {
                 self.bookImage = image!
             }
         })
@@ -60,41 +56,30 @@ class MakeMemoViewController: UIViewController,UITextViewDelegate{
         memoTextView.inputAccessoryView = customBar
         memoTextView.keyboardType = .default
         memoTextView.delegate = self
-        
-        saveButton.layer.cornerRadius = 10.0
-        
-        
-        
 
-        
+        saveButton.layer.cornerRadius = 10.0
+
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return true
     }
-    
-    
-    
+
     @IBAction func saveButtonAction(_ sender: Any) {
-        
-        
+
         let newBook = appDelegate.dataController.createBook()
-        
-        
+
         newBook.title = bookData.title
         newBook.author = bookData.author
         newBook.publisher = bookData.publisher
         newBook.publishDate = bookData.publishDate
         newBook.image = bookImage.jpegData(compressionQuality: 1)
         newBook.memo = memoTextView.text
-        
-        appDelegate.dataController.saveContext()
-        
-        performSegue(withIdentifier: "saveReport", sender: nil)
-        
-        
-    }
-    
 
-   
+        appDelegate.dataController.saveContext()
+
+        performSegue(withIdentifier: "saveReport", sender: nil)
+
+    }
+
 }

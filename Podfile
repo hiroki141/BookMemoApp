@@ -6,9 +6,8 @@ target 'BookMemo' do
   use_frameworks!
 
   # Pods for BookMemo
-   pod 'Alamofire', '~> 5.0.0-beta.5'
+   pod 'Alamofire', '~> 5.1.0'
    pod 'SwiftyJSON'
    pod 'SDWebImage'
-
 
 end

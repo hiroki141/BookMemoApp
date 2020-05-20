@@ -9,7 +9,7 @@
 import Foundation
 
 //APIで取得した本の情報を一時的に保持する
-struct AcquiredBookData{
+struct AcquiredBookData {
     var title = ""
     var author = ""
     var publisher = ""

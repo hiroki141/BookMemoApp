@@ -26,6 +26,7 @@
 		F5866063239DF94500197FD5 /* AcquiredBookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5866062239DF94500197FD5 /* AcquiredBookData.swift */; };
 		F590D61723C9BC00005B203A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F590D61623C9BC00005B203A /* Constants.swift */; };
 		F595562D23D5DB90008078ED /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F595562C23D5DB90008078ED /* AlertManager.swift */; };
+		F5EB198024751764009BDDC8 /* UIViewController+Extenrtion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EB197F24751764009BDDC8 /* UIViewController+Extenrtion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		F590D61623C9BC00005B203A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F595562C23D5DB90008078ED /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		F5A73D65832AECA997F3F721 /* Pods-BookMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMemo.release.xcconfig"; path = "Target Support Files/Pods-BookMemo/Pods-BookMemo.release.xcconfig"; sourceTree = "<group>"; };
+		F5EB197F24751764009BDDC8 /* UIViewController+Extenrtion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extenrtion.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				F590D61623C9BC00005B203A /* Constants.swift */,
 				F51D8D5223CC6C8F00BC0A3E /* URL.swift */,
 				F595562C23D5DB90008078ED /* AlertManager.swift */,
+				F5EB197F24751764009BDDC8 /* UIViewController+Extenrtion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				F538B01F2398F2BE001676F8 /* BookMemo.xcdatamodeld in Sources */,
 				F590D61723C9BC00005B203A /* Constants.swift in Sources */,
 				F52EDFB023A225F50018D54F /* CreateViewController.swift in Sources */,
+				F5EB198024751764009BDDC8 /* UIViewController+Extenrtion.swift in Sources */,
 				F52FB3F6239CCC4B00C4F5DF /* EditMemoViewController.swift in Sources */,
 				F538B0172398F2BE001676F8 /* SceneDelegate.swift in Sources */,
 				F538B02F2398FDEE001676F8 /* CaptureViewController.swift in Sources */,

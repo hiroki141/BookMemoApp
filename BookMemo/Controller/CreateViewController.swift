@@ -8,17 +8,17 @@
 
 import UIKit
 
-class CreateViewController: UIViewController,UITextViewDelegate {
-    
+class CreateViewController: UIViewController, UITextViewDelegate {
+
     var bookData = AcquiredBookData()
-    var dataManager = DataManager(){}
-    
+    var dataManager = DataManager {}
+
     @IBOutlet weak var bookImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var memoTextView: UITextView! {
-        didSet{
+        didSet {
             memoTextView.layer.cornerRadius = 10.0
             memoTextView.layer.masksToBounds = true
             memoTextView.font = UIFont.systemFont(ofSize: 16.0)
@@ -26,32 +26,32 @@ class CreateViewController: UIViewController,UITextViewDelegate {
         }
     }
     @IBOutlet weak var saveButton: UIButton!
-    
-    @objc func onClickCommitButton(sender: UIButton){
-        if memoTextView.isFirstResponder{
+
+    @objc func onClickCommitButton(sender: UIButton) {
+        if memoTextView.isFirstResponder {
             memoTextView.resignFirstResponder()
         }
     }
     var makeABullet = false
     let bulletButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width-105, y: 0, width: 50, height: 44))
-    
-    @objc func onClickBulletButton(sender: UIButton){
-        if makeABullet == false{
+
+    @objc func onClickBulletButton(sender: UIButton) {
+        if makeABullet == false {
             makeABullet = true
             bulletButton.tintColor = .blue
-            
+
             let location = memoTextView.selectedRange.location
-            let previousOneCharacter = (memoTextView.text as NSString).substring(with: NSRange(location: location-1 , length: 1))
-            
+            let previousOneCharacter = (memoTextView.text as NSString).substring(with: NSRange(location: location-1, length: 1))
+
             // メモの先頭、または直前で改行しているところから始めるとき、そのまま点を打つ
             if previousOneCharacter == "\n" || memoTextView.text == ""{
                 memoTextView.insertText(" \u{2022}  ")
-                
-            //　それ以外の時、改行してから点を打つ
-            }else{
+
+                //　それ以外の時、改行してから点を打つ
+            } else {
                 memoTextView.insertText("\n \u{2022}  ")
             }
-        }else{
+        } else {
             makeABullet = false
             bulletButton.tintColor = .white
         }
@@ -59,62 +59,62 @@ class CreateViewController: UIViewController,UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         bookImage.image = UIImage(data: bookData.image)
         titleLabel.text = bookData.title
         authorLabel.text = bookData.author
         publisherLabel.text = bookData.publisher
-        
+
         //キーボードに完了ボタンを追加
-        
+
         let commitButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width-50, y: 0, width: 50, height: 44))
         commitButton.setTitle("完了", for: .normal)
         commitButton.setTitleColor(UIColor.blue, for: .normal)
         commitButton.addTarget(self, action: #selector(EditMemoViewController.onClickCommitButton), for: .touchUpInside)
-        
+
         let bulletImage = UIImage(named: "bullet.png")?.withRenderingMode(.alwaysTemplate)
         bulletButton.setImage(bulletImage, for: .normal)
         bulletButton.tintColor = .white
         bulletButton.addTarget(self, action: #selector(EditMemoViewController.onClickBulletButton), for: .touchUpInside)
-        
+
         let customBar = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44))
         customBar.backgroundColor = .systemGray2
         customBar.addSubview(commitButton)
         customBar.addSubview(bulletButton)
-        
+
         memoTextView.inputAccessoryView = customBar
         memoTextView.keyboardType = .default
-        
+
         saveButton.layer.cornerRadius = 10.0
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-           //　箇条書きを作成
-           if makeABullet == true{
-               if text == "\n"{
-                   memoTextView.insertText("\n \u{2022}  ")
-                   return false
-               }else{
-                   return true
-               }
-           }
-           return true
-       }
-    
+        //　箇条書きを作成
+        if makeABullet == true {
+            if text == "\n"{
+                memoTextView.insertText("\n \u{2022}  ")
+                return false
+            } else {
+                return true
+            }
+        }
+        return true
+    }
+
     @IBAction func saveAction(_ sender: Any) {
         //新しいデータの作成
         let book = dataManager.createBook()
-        
+
         book.title = bookData.title
         book.author = bookData.author
         book.publisher = bookData.publisher
         book.publishDate = bookData.publishDate
         book.image = bookData.image
         book.memo = memoTextView.text
-        
+
         dataManager.saveContext()
         print("新しいbookを保存しました")
-        
+
         let alertManager = AlertManager(alertType: .saveSucceed)
         alertManager.delegate = self
         let alertController = alertManager.showAlert()
@@ -122,9 +122,9 @@ class CreateViewController: UIViewController,UITextViewDelegate {
     }
 }
 
-extension CreateViewController:alertDelegate{
-  func backToHome() {
-    performSegue(withIdentifier: SegueDestination.toTopPage, sender: nil)
-        
+extension CreateViewController: alertDelegate {
+    func backToHome() {
+        performSegue(withIdentifier: SegueDestination.toTopPage, sender: nil)
+
     }
 }

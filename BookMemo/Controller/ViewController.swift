@@ -9,35 +9,35 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
     @IBOutlet weak var booksTableView: UITableView!
-    
-    var dataManager = DataManager(){}
+
+    var dataManager = DataManager {}
     var books = [Book]()
     var selectedBook = Book()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         booksTableView.delegate = self
         booksTableView.dataSource = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(true)
-        
+
         books = dataManager.getBooks()
         booksTableView.reloadData()
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        cell.imageView?.image = UIImage(data:books[indexPath.row].image!)
+        cell.imageView?.image = UIImage(data: books[indexPath.row].image!)
         cell.textLabel?.text = books[indexPath.row].title
         cell.textLabel?.adjustsFontSizeToFitWidth = true
         cell.textLabel?.numberOfLines = 5
@@ -46,24 +46,24 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.setNeedsLayout()
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.frame.size.height/5
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedBook = books[indexPath.row]
-        
+
         performSegue(withIdentifier: SegueDestination.editMemoView, sender: nil)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueDestination.editMemoView{
+        if segue.identifier == SegueDestination.editMemoView {
             let editMemoVC = segue.destination as! EditMemoViewController
             editMemoVC.book = selectedBook
         }
     }
-    
+
     @IBAction func newCreate(_ sender: Any) {
         let actionSheetManager = AlertManager(alertType: .selectSearchMethod)
         actionSheetManager.delegate = self
@@ -72,14 +72,13 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
 }
 
-extension ViewController:alertDelegate{
-    
+extension ViewController: alertDelegate {
+
     func toCaptureViewController() {
         self.performSegue(withIdentifier: SegueDestination.captureBarcode, sender: nil)
     }
-    
+
     func toSearchViewController() {
         self.performSegue(withIdentifier: SegueDestination.searchByKeyword, sender: nil)
     }
 }
-

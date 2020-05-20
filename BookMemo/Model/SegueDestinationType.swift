@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct SegueDestination {
     static let searchResult = "toSearchResult"
     static let editMemoView = "toEditMemoView"
@@ -16,5 +15,4 @@ struct SegueDestination {
     static let toTopPage = "toTopPage"
     static let captureBarcode = "toCapture"
     static let searchByKeyword = "toSearch"
-    }
-    
+}
