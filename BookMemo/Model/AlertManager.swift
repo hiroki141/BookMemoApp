@@ -30,6 +30,7 @@ enum AlertType {
     case removeWarning
     case selectSearchMethod
     case scanFailed
+    case searchFailed
 }
 
 final class AlertManager {
@@ -41,7 +42,7 @@ final class AlertManager {
         type = alertType
     }
 
-    func showAlert() -> UIAlertController {
+    func showAlert(title: String = "エラー", message: String = "") -> UIAlertController {
         switch type {
         case .saveSucceed:
             let alertController = UIAlertController(title: "保存しました", message: "編集を続けますか？BOOK一覧に戻りますか?", preferredStyle: .alert)
@@ -72,7 +73,7 @@ final class AlertManager {
             return alertController
             
         case .scanFailed:
-            let alertController = UIAlertController(title: "本が見つかりませんでした", message: "本の検索方法を選択してください", preferredStyle: .actionSheet)
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             alertController.addAction(UIAlertAction(title: "バーコードを読み取る", style: .default, handler: { (_) in
                 self.delegate?.toCaptureViewController()
             }))
@@ -84,6 +85,10 @@ final class AlertManager {
             }))
             return alertController
             
+        case .searchFailed:
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            return alertController
         }
     }
 }
