@@ -92,13 +92,25 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UINavigationC
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON {[weak self](response) in
             guard let _ = self else {return}
 
+            let failAlertManager = AlertManager(alertType: .searchFailed)
+            
             switch response.result {
             case .success:
                 let json: JSON = JSON(response.data as Any)
                 print(json)
+                
+                if let error = json["error"].string {
+                    let errorDescriprtion = json["error_description"].string ?? ""
+                    let failAlertController = failAlertManager.showAlert(title: error, message: errorDescriprtion)
+                    self?.present(failAlertController, animated: true)
+                    return
+                }
+                
                 let resultCount = json["count"].int!
                 guard resultCount != 0 else {
                     print("本が見つかりませんでした（0 hit）")
+                    let failAlertController = failAlertManager.showAlert(title: "NOT FOUND", message: "本が見つかりませんでした")
+                    self?.present(failAlertController, animated: true)
                     return
                 }
                 let items = json["Items"]
