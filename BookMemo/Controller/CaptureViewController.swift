@@ -111,15 +111,24 @@ extension CaptureViewController: AVCaptureMetadataOutputObjectsDelegate {
                 guard let _ = self else {return}
                 
                 let failAlertManager = AlertManager(alertType: .scanFailed)
+                failAlertManager.delegate = self
                 
                 switch response.result {
                 case .success:
                     let json: JSON = JSON(response.data as Any)
                     print(json)
+                    
+                    if let error = json["error"].string {
+                        let errorDescriprtion = json["error_description"].string ?? ""
+                        let failAlertController = failAlertManager.showAlert(title: error, message: errorDescriprtion)
+                        self?.present(failAlertController, animated: true)
+                        return
+                    }
+                    
                     let resultCount = json["count"].int
                     guard resultCount != 0 else {
                         print("本が見つかりませんでした（0 hit）")
-                        failAlertManager.delegate = self
+                        
                         let failAlertController = failAlertManager.showAlert()
                         self?.present(failAlertController, animated: true)
                         return
