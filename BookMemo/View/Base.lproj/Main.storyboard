@@ -273,8 +273,8 @@
                     <connections>
                         <outlet property="authorLabel" destination="jkg-EM-cpJ" id="Upi-LP-BNj"/>
                         <outlet property="bookImageView" destination="cMB-FL-RGA" id="i5m-0L-EAf"/>
+                        <outlet property="editDateLabel" destination="oKH-mh-cv9" id="cBM-Zz-qKJ"/>
                         <outlet property="memoTextView" destination="ODW-ui-XRq" id="Tu3-wD-W2W"/>
-                        <outlet property="publishDateLabel" destination="oKH-mh-cv9" id="7w5-eS-CdO"/>
                         <outlet property="publisherLabel" destination="Zks-Fd-4MJ" id="IzM-pg-ZFN"/>
                         <outlet property="saveButton" destination="Rkh-EH-m79" id="7sB-XS-g4I"/>
                         <outlet property="titleLabel" destination="4e4-MD-36n" id="BJV-ZT-pGe"/>
@@ -375,6 +375,7 @@
                         <outlet property="saveButton" destination="0dY-mN-uJU" id="569-zR-7Gu"/>
                         <outlet property="titleLabel" destination="9n2-BL-8O7" id="Obe-XF-wfo"/>
                         <segue destination="IJx-D8-J53" kind="presentation" identifier="toTopPage" id="Mpo-a6-xL7"/>
+                        <segue destination="pur-7I-Sxt" kind="show" identifier="toEditMemoView" id="8yc-MH-8hB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yva-sM-erv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -592,6 +593,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="MXG-3m-Sya"/>
         <segue reference="sdF-uU-BGc"/>
+        <segue reference="8yc-MH-8hB"/>
         <segue reference="UBn-7h-ibN"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -11,6 +11,7 @@ import UIKit
 class CreateViewController: UIViewController, UITextViewDelegate {
 
     var bookData = AcquiredBookData()
+    var book = Book()
     var dataManager = DataManager {}
 
     @IBOutlet weak var bookImage: UIImageView!
@@ -103,22 +104,31 @@ class CreateViewController: UIViewController, UITextViewDelegate {
 
     @IBAction func saveAction(_ sender: Any) {
         //新しいデータの作成
-        let book = dataManager.createBook()
-
+        book = dataManager.createBook()
+        book.id = NSUUID().uuidString
         book.title = bookData.title
         book.author = bookData.author
         book.publisher = bookData.publisher
         book.publishDate = bookData.publishDate
         book.image = bookData.image
         book.memo = memoTextView.text
+        book.editDate = Date()
 
         dataManager.saveContext()
         print("新しいbookを保存しました")
-
+        print(book.editDate)
+        
         let alertManager = AlertManager(alertType: .saveSucceed)
         alertManager.delegate = self
         let alertController = alertManager.showAlert()
         present(alertController, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == SegueDestination.editMemoView {
+        let editMemoVC = segue.destination as! EditMemoViewController
+        editMemoVC.book = book
+        }
     }
 }
 
@@ -126,5 +136,9 @@ extension CreateViewController: alertDelegate {
     func backToHome() {
         performSegue(withIdentifier: SegueDestination.toTopPage, sender: nil)
 
+    }
+    
+    func continueEditing() {
+        performSegue(withIdentifier: SegueDestination.editMemoView, sender: nil)
     }
 }
