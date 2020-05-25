@@ -86,7 +86,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UINavigationC
     }
 
     func getBookData(searchKeyword: String, keywordType: KeywordType) {
-
+        
+        startIndicator()
+        
         let urlManager = UrlManager(keywordType: keywordType, keyword: searchKeyword)
         let url = urlManager.getURL()
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON {[weak self](response) in
@@ -138,7 +140,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UINavigationC
                 break
             }
         }
-
+    stopIndicator()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
