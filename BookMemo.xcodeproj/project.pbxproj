@@ -24,6 +24,7 @@
 		F53B91DC239B542E004B2790 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53B91DB239B542E004B2790 /* DataManager.swift */; };
 		F540F26C239F9A3C008BBEF0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F540F26B239F9A3C008BBEF0 /* SearchViewController.swift */; };
 		F544321F247B80F50042D733 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F544321E247B80F50042D733 /* GoogleService-Info.plist */; };
+		F5443222247BE0770042D733 /* InfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5443221247BE0770042D733 /* InfomationViewController.swift */; };
 		F5866063239DF94500197FD5 /* AcquiredBookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5866062239DF94500197FD5 /* AcquiredBookData.swift */; };
 		F590D61723C9BC00005B203A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F590D61623C9BC00005B203A /* Constants.swift */; };
 		F595562D23D5DB90008078ED /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F595562C23D5DB90008078ED /* AlertManager.swift */; };
@@ -51,6 +52,7 @@
 		F53B91DB239B542E004B2790 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F540F26B239F9A3C008BBEF0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F544321E247B80F50042D733 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F5443221247BE0770042D733 /* InfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationViewController.swift; sourceTree = "<group>"; };
 		F5866062239DF94500197FD5 /* AcquiredBookData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredBookData.swift; sourceTree = "<group>"; };
 		F590D61623C9BC00005B203A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F595562C23D5DB90008078ED /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				F538B0142398F2BE001676F8 /* AppDelegate.swift */,
+				F5443221247BE0770042D733 /* InfomationViewController.swift */,
 				F538B0162398F2BE001676F8 /* SceneDelegate.swift */,
 				F538B0182398F2BE001676F8 /* ViewController.swift */,
 				F52FB3F5239CCC4B00C4F5DF /* EditMemoViewController.swift */,
@@ -299,6 +302,7 @@
 				F538B0192398F2BE001676F8 /* ViewController.swift in Sources */,
 				F539E69323B9E5BA006B192B /* SegueDestinationType.swift in Sources */,
 				F538B033239906DA001676F8 /* SearchResultViewController.swift in Sources */,
+				F5443222247BE0770042D733 /* InfomationViewController.swift in Sources */,
 				F538B0152398F2BE001676F8 /* AppDelegate.swift in Sources */,
 				F538B01F2398F2BE001676F8 /* BookMemo.xcdatamodeld in Sources */,
 				F590D61723C9BC00005B203A /* Constants.swift in Sources */,
