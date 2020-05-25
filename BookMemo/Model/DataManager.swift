@@ -50,7 +50,8 @@ class DataManager: NSObject {
     func getBooks() -> [Book] {
         let context = persistentContainer.viewContext
         let booksfetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
-        
+        let sort = NSSortDescriptor(key: "editDate", ascending: false)
+        booksfetch.sortDescriptors = [sort]
         do {
             let fetchedBooks = try context.fetch(booksfetch) as! [Book]
             return fetchedBooks
@@ -60,10 +61,10 @@ class DataManager: NSObject {
     }
 
     //検索
-    func serchBook(title: String) -> [Book] {
+    func serchBook(id: String) -> [Book] {
         let context = persistentContainer.viewContext
         let booksfetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
-        let predicate = NSPredicate(format: "title == %@", title)
+        let predicate = NSPredicate(format: "id == %@", id)
         booksfetch.predicate = predicate
 
         do {
@@ -75,17 +76,17 @@ class DataManager: NSObject {
     }
 
     //更新
-    func updateBook(title: String, updatedBook: Book) {
-        var Books = serchBook(title: title)
+    func updateBook(id: String, updatedBook: Book) {
+        var Books = serchBook(id: id)
         Books[0] = updatedBook
         saveContext()
     }
 
     //削除
-    func delete(title: String) {
+    func delete(id: String) {
         let context = persistentContainer.viewContext
         let booksfetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
-        let predicate = NSPredicate(format: "title == %@", title)
+        let predicate = NSPredicate(format: "id == %@", id)
         booksfetch.predicate = predicate
 
         do {
