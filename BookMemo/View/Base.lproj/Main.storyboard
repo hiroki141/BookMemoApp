@@ -20,7 +20,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="73" id="lYy-ed-xrd">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-ed-xrd">
                                         <rect key="frame" x="0.0" y="28" width="414" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lYy-ed-xrd" id="yBp-Uo-FXB">
@@ -35,7 +35,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="uvv-qY-lnR">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="ILG-u8-Coj">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="ILG-u8-Coj">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DfY-h5-ntk">
                                 <rect key="frame" x="20" y="11" width="20" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -76,7 +76,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Sl-Gr-bN5">
-                                <rect key="frame" x="0.0" y="88" width="414" height="180"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="300"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="タイトル、または著者名" translatesAutoresizingMaskIntoConstraints="NO" id="H3C-QB-YYM">
                                         <rect key="frame" x="0.0" y="8" width="414" height="44"/>
@@ -120,6 +120,7 @@
                                 <constraints>
                                     <constraint firstItem="kpk-VL-TED" firstAttribute="leading" secondItem="3Sl-Gr-bN5" secondAttribute="leading" constant="60" id="1VK-cH-IYy"/>
                                     <constraint firstItem="irl-3Z-z4Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kpk-VL-TED" secondAttribute="trailing" constant="8" symbolic="YES" id="HMA-rp-8Uz"/>
+                                    <constraint firstAttribute="height" constant="300" id="Ob2-6M-Wes"/>
                                     <constraint firstItem="H3C-QB-YYM" firstAttribute="leading" secondItem="3Sl-Gr-bN5" secondAttribute="leading" id="OeR-JV-rw7"/>
                                     <constraint firstItem="H3C-QB-YYM" firstAttribute="top" secondItem="3Sl-Gr-bN5" secondAttribute="topMargin" id="Q9P-6W-7NV"/>
                                     <constraint firstItem="irl-3Z-z4Z" firstAttribute="bottom" secondItem="kpk-VL-TED" secondAttribute="bottom" id="T7D-bT-pSB"/>
@@ -133,7 +134,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="3Sl-Gr-bN5" firstAttribute="leading" secondItem="aec-T1-VRM" secondAttribute="leading" id="30R-R2-Kch"/>
-                            <constraint firstItem="nd9-pV-uXM" firstAttribute="bottom" secondItem="3Sl-Gr-bN5" secondAttribute="bottom" constant="594" id="7Hw-bK-44D"/>
+                            <constraint firstItem="3Sl-Gr-bN5" firstAttribute="top" secondItem="nd9-pV-uXM" secondAttribute="top" id="9mS-mr-2cv"/>
                             <constraint firstItem="3Sl-Gr-bN5" firstAttribute="top" secondItem="nd9-pV-uXM" secondAttribute="top" id="n8m-8G-RwM"/>
                             <constraint firstAttribute="trailing" secondItem="3Sl-Gr-bN5" secondAttribute="trailing" id="ud8-mn-IV6"/>
                         </constraints>
@@ -258,6 +259,16 @@
                         <viewLayoutGuide key="safeArea" id="npG-Vi-QG9"/>
                     </view>
                     <navigationItem key="navigationItem" id="Rz4-Ha-pqf">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="oQ7-LT-npk">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XN5-3M-KcJ">
+                                <rect key="frame" x="20" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Book一覧"/>
+                                <connections>
+                                    <action selector="backToTop:" destination="pur-7I-Sxt" eventType="touchUpInside" id="lNR-vb-AeU"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" width="20" style="done" id="eMY-OS-IUX">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nkm-JF-smY">
                                 <rect key="frame" x="364" y="7" width="30" height="30"/>
@@ -278,7 +289,7 @@
                         <outlet property="publisherLabel" destination="Zks-Fd-4MJ" id="IzM-pg-ZFN"/>
                         <outlet property="saveButton" destination="Rkh-EH-m79" id="7sB-XS-g4I"/>
                         <outlet property="titleLabel" destination="4e4-MD-36n" id="BJV-ZT-pGe"/>
-                        <segue destination="IJx-D8-J53" kind="show" identifier="toBookList" id="MXG-3m-Sya"/>
+                        <segue destination="IJx-D8-J53" kind="showDetail" identifier="toTopPage" id="MXG-3m-Sya"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cgm-pJ-3IT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -593,7 +604,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="MXG-3m-Sya"/>
         <segue reference="sdF-uU-BGc"/>
-        <segue reference="8yc-MH-8hB"/>
+        <segue reference="aAA-dv-bmR"/>
         <segue reference="UBn-7h-ibN"/>
     </inferredMetricsTieBreakers>
     <resources>
