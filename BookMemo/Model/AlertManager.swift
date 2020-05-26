@@ -49,14 +49,15 @@ final class AlertManager {
             alertController.addAction(UIAlertAction(title: "book一覧へ", style: .default, handler: {(_) in
                 self.delegate?.backToHome()
             }))
-            alertController.addAction(UIAlertAction(title: "編集を続ける", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "編集を続ける", style: .default, handler: {(_) in
+                self.delegate?.continueEditing()
+            }))
             return alertController
             
         case .removeWarning:
-            let alertController = UIAlertController(title: "アラート表示", message: "削除しますか？", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self](_) in
-                guard let _ = self else {return}
-                self!.delegate?.deleteBook()
+            let alertController = UIAlertController(title: "削除しますか？", message: "", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {(_) in
+                self.delegate?.deleteBook()
             }))
             alertController.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
             return alertController

@@ -17,7 +17,7 @@ class EditMemoViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
-    @IBOutlet weak var publishDateLabel: UILabel!
+    @IBOutlet weak var editDateLabel: UILabel!
     @IBOutlet weak var memoTextView: UITextView! {
         didSet {
             memoTextView.layer.cornerRadius = 10.0
@@ -69,8 +69,11 @@ class EditMemoViewController: UIViewController, UITextViewDelegate {
         titleLabel.text = book!.title
         authorLabel.text = book!.author
         publisherLabel.text = book!.publisher
-        publishDateLabel.text = book!.publishDate
         bookImageView.image = UIImage(data: book!.image!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMd", options: 0, locale: Locale(identifier: "ja_JP"))
+        let editDateString = dateFormatter.string(from: book!.editDate!)
+        editDateLabel.text = editDateString
 
         memoTextView.text = book!.memo
 
@@ -110,6 +113,7 @@ class EditMemoViewController: UIViewController, UITextViewDelegate {
     @IBAction func saveAction(_ sender: Any) {
 
         book!.memo = memoTextView.text
+        book?.editDate = Date()
         dataManager.saveContext()
 
         let saveReportManager = AlertManager(alertType: .saveSucceed)
@@ -134,7 +138,7 @@ extension EditMemoViewController: alertDelegate {
     }
 
     func deleteBook() {
-        self.dataManager.delete(title: self.book!.title!)
+        self.dataManager.delete(id: self.book!.id!)
         self.navigationController?.popViewController(animated: true)
     }
 }
