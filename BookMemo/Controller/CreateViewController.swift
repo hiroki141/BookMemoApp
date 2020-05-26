@@ -116,7 +116,6 @@ class CreateViewController: UIViewController, UITextViewDelegate {
 
         dataManager.saveContext()
         print("新しいbookを保存しました")
-        print(book.editDate)
         
         let alertManager = AlertManager(alertType: .saveSucceed)
         alertManager.delegate = self
@@ -127,7 +126,7 @@ class CreateViewController: UIViewController, UITextViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == SegueDestination.editMemoView {
         let editMemoVC = segue.destination as! EditMemoViewController
-        editMemoVC.book = book
+        editMemoVC.id = book.id!
         }
     }
 }

@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var dataManager = DataManager {}
     var books = [Book]()
-    var selectedBook = Book()
+    var selectedBookId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedBook = books[indexPath.row]
+        selectedBookId = books[indexPath.row].id!
 
         performSegue(withIdentifier: SegueDestination.editMemoView, sender: nil)
     }
@@ -60,7 +60,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueDestination.editMemoView {
             let editMemoVC = segue.destination as! EditMemoViewController
-            editMemoVC.book = selectedBook
+            editMemoVC.id = selectedBookId
         }
     }
 

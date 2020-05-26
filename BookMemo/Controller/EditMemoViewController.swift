@@ -11,6 +11,7 @@ import UIKit
 class EditMemoViewController: UIViewController, UITextViewDelegate {
 
     var book: Book? = Book()
+    var id = ""
     var dataManager = DataManager {}
 
     @IBOutlet weak var bookImageView: UIImageView!
@@ -65,6 +66,8 @@ class EditMemoViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        book = dataManager.serchBook(id: id)
 
         titleLabel.text = book!.title
         authorLabel.text = book!.author
@@ -129,16 +132,20 @@ class EditMemoViewController: UIViewController, UITextViewDelegate {
         let deleteAlertController = deleteAlertManager.showAlert()
         present(deleteAlertController, animated: true)
     }
+    
+    @IBAction func backToTop(_ sender: Any) {
+        performSegue(withIdentifier: SegueDestination.toTopPage, sender: nil)
+    }
 }
 
 extension EditMemoViewController: alertDelegate {
 
     func backToHome() {
-        self.navigationController?.popViewController(animated: true)
+        performSegue(withIdentifier: SegueDestination.toTopPage, sender: nil)
     }
 
     func deleteBook() {
         self.dataManager.delete(id: self.book!.id!)
-        self.navigationController?.popViewController(animated: true)
+        performSegue(withIdentifier: SegueDestination.toTopPage, sender: nil)
     }
 }
